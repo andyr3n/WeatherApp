@@ -2,28 +2,33 @@ import React from 'react';
 import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import RowText from '../components/RowText';
+import { WeatherType } from '../utilities/weatherType';
 
-const CurrentWeather = () => {
+const CurrentWeather = ({ weatherData }) => {
+  const { wrapper, container, tempStyles, feels, highLowWrapper, highLow, bodyWrapper, description, message  } = styles
+  
+  const { main: {temp, temp_max, temp_min} } = weatherData;
+
+  const weatherCondition = weather[0].main
   return (
-    <SafeAreaView style={styles.wrapper}>
-      <View style={styles.container}>
-        <Feather name="sun" size={100} color="black" />
-        <Text style={styles.temp}>6</Text>
-        <Text style={styles.feels}>Feels like 5</Text>
+    <SafeAreaView style={[wrapper, { backgroundColor: WeatherType[weatherCondition].backgroundColor}]}>
+      <View style={container}>
+        <Feather name={WeatherType[weatherCondition].icon} size={100} color="black" />
+        <Text style={temp}>6</Text>
         <RowText 
-          messageOne={"High: 8"} 
-          messageTwo={"Low: 6"} 
-          containerStyles={styles.highLowWrapper}
-          messageOneStyles={styles.highLow}
-          messageTwoStyles={styles.highLow}
+          messageOne={`High: ${temp_max}`} 
+          messageTwo={`Low: ${temp_min}`} 
+          containerStyles={highLowWrapper}
+          messageOneStyles={highLow}
+          messageTwoStyles={highLow}
         />
       </View>
       <RowText 
-          messageOne={"Sunny"} 
-          messageTwo={"Its perfect t-shirt weather"} 
-          containerStyles={styles.bodyWrapper}
-          messageOneStyles={styles.description}
-          messageTwoStyles={styles.message}
+          messageOne={weather[0].description} 
+          messageTwo={weatherType[weatherCondition].message} 
+          containerStyles={bodyWrapper}
+          messageOneStyles={description}
+          messageTwoStyles={message}
         />
     </SafeAreaView>
   );
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     flex: 1,
   },
-  temp: {
+  tempStyles: {
     fontSize: 48,
     color: 'black',
   },
