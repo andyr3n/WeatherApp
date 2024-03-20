@@ -13,7 +13,6 @@ const Tabs = ({ weather }) => {
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
                     let iconName;
-
                     if (route.name === 'Current Weather') {
                         iconName = 'cloud';
                     } else if (route.name === 'Upcoming Weather') {
@@ -21,27 +20,35 @@ const Tabs = ({ weather }) => {
                     } else if (route.name === 'City') {
                         iconName = 'map-pin';
                     }
-
+                    // Return the icon
                     return <Feather name={iconName} size={size} color={color} />;
                 },
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',
                 headerTitleStyle: {
                     fontWeight: 'bold',
                     fontSize: 25,
                     color: 'tomato',
                 },
             })}
-            tabBarOptions={{
-                activeTintColor: 'tomato',
-                inactiveTintColor: 'gray',
-            }}
         >
-            <Tab.Screen name="Current Weather" component={CurrentWeather} >
-                {() => <CurrentWeather weatherData={weather.list[0]} />}
-            </Tab.Screen>
-            <Tab.Screen name="Upcoming Weather" component={UpcomingWeather} />
-            <Tab.Screen name="City" component={City} />
+            <Tab.Screen
+                name="Current Weather"
+                children={() => <CurrentWeather weatherData={weather?.list ? weather.list[0] : null} />}
+                options={{ headerShown: false }}
+            />
+            <Tab.Screen
+                name="Upcoming Weather"
+                component={UpcomingWeather}
+                options={{ headerShown: false }}
+            />
+            <Tab.Screen
+                name="City"
+                component={City}
+                options={{ headerShown: false }}
+            />
         </Tab.Navigator>
-    )
-}
+    );
+};
 
 export default Tabs;

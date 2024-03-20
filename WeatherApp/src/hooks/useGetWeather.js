@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import { WEATHER_API_KEY } from '@env';
 
 export const useGetWeather = () => {
+  console.log(WEATHER_API_KEY)
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [weather, setWeather] = useState([]);
@@ -12,7 +13,7 @@ export const useGetWeather = () => {
     const fetchWeatherData = async () => {
         try{
           const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${WEATHER_API_KEY}&units=metric`);
-          const data = await response.json();
+          const data = await res.json();
           setWeather(data);
         } catch (error) {
           setError("Error fetching weather data");
@@ -34,5 +35,5 @@ export const useGetWeather = () => {
           await fetchWeatherData();
         })()
       }, [lat, lon]);
-      return [isLoading, error, weather]
+      return [weather, isLoading, error]
 }
