@@ -34,14 +34,16 @@ const Tabs = ({ weather }) => {
         >
             <Tab.Screen
                 name="Current Weather"
-                children={() => <CurrentWeather weatherData={weather?.list ? weather.list[0] : null} />}
                 options={{ headerShown: false }}
-            />
+            >
+                {() => <CurrentWeather weatherData={weather?.list ? weather.list[0] : null} />}
+            </Tab.Screen>
             <Tab.Screen
                 name="Upcoming Weather"
-                component={UpcomingWeather}
                 options={{ headerShown: false }}
-            />
+            >
+                {() => <UpcomingWeather weatherData={weather.list} />}
+            </Tab.Screen>
             <Tab.Screen
                 name="City"
                 component={City}
@@ -52,3 +54,4 @@ const Tabs = ({ weather }) => {
 };
 
 export default Tabs;
+

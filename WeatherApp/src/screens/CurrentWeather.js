@@ -6,7 +6,6 @@ import { WeatherType } from '../utilities/weatherType';
 
 const CurrentWeather = ({ weatherData }) => {
   const { wrapper, container, tempStyles, highLowWrapper, highLow, bodyWrapper, description, message } = styles;
-  
   // Safely access nested properties
   const { main: { temp, temp_max, temp_min }, weather } = weatherData;
   if (!weather || weather.length === 0) return <Text>No weather data</Text>;
