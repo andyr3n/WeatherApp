@@ -2,20 +2,22 @@ import React from 'react';
 import { SafeAreaView, Text, ImageBackground, StyleSheet, StatusBar, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import IconText from '../components/IconText';
+import moment from 'moment';
 
-const City = () => {
+const City = ({ weatherData }) => {
     const { container, cityName, cityText, countryName, populationWrapper, populationText, riseSetWrapper, riseSetText, rowLayout, ImageLayout } = styles;
+    const { name, country, population, sunrise, sunset } = weatherData;
     return (
         <SafeAreaView style={container}>
             <ImageBackground source={require('../../assets/city-background.jpg')} style={ImageLayout}>
-                <Text style={[cityName, cityText]}>Vancouver</Text>
-                <Text style={[countryName, cityText]}>Canada</Text>
+                <Text style={[cityName, cityText]}>{name}</Text>
+                <Text style={[countryName, cityText]}>{country}</Text>
                 <View style={[populationWrapper, rowLayout]}>
-                    <IconText iconName={"users"} iconColor={"white"} bodyText={"675,218"} bodyTextStyles={populationText} />
+                    <IconText iconName={"users"} iconColor={"white"} bodyText={`Population: ${population}`} bodyTextStyles={populationText} />
                 </View>
                 <View style={[riseSetWrapper, rowLayout]}>
-                    <IconText iconName={"sunrise"} iconColor={"white"} bodyText={"Sunrise: 7:00 AM"} bodyTextStyles={riseSetText} />
-                    <IconText iconName={"sunset"} iconColor={"white"} bodyText={"Sunset: 7:00 PM"} bodyTextStyles={riseSetText} />
+                    <IconText iconName={"sunrise"} iconColor={"white"} bodyText={moment(sunrise).format('h:mm:ss a')} bodyTextStyles={riseSetText} />
+                    <IconText iconName={"sunset"} iconColor={"white"} bodyText={moment(sunset).format('h:mm:ss a')} bodyTextStyles={riseSetText} />
                 </View>
             </ImageBackground>
         </SafeAreaView>

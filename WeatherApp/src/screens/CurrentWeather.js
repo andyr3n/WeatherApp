@@ -18,7 +18,7 @@ const CurrentWeather = ({ weatherData }) => {
         <Feather name={WeatherType[weatherCondition]?.icon || 'sun'} size={100} color="black" />
         <Text style={tempStyles}>{temp}°</Text>
         <RowText 
-          messageOne={`High: ${temp_max}°`} 
+          messageOne={`High: ${temp_max}° `} 
           messageTwo={`Low: ${temp_min}°`} 
           containerStyles={highLowWrapper}
           messageOneStyles={highLow}
